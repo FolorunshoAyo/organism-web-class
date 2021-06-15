@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2021 at 05:17 PM
+-- Generation Time: Jun 15, 2021 at 05:45 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -59,13 +59,22 @@ CREATE TABLE `courseregistration` (
 --
 
 CREATE TABLE `logs` (
-  `client` varchar(100) NOT NULL,
+  `client_address` varchar(100) NOT NULL,
+  `browser` varchar(100) NOT NULL,
   `date` varchar(100) NOT NULL,
-  `info` varchar(1000) NOT NULL,
-  `login_attempts` int(11) DEFAULT NULL,
-  `failed_login_attempts` int(11) DEFAULT NULL,
-  `malicious_attempts` int(11) DEFAULT NULL
+  `info` varchar(100) NOT NULL,
+  `login_attempts` int(11) NOT NULL,
+  `successfull_logins` int(11) NOT NULL,
+  `failed_login_attempts` int(11) NOT NULL,
+  `malicious_attempts` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`client_address`, `browser`, `date`, `info`, `login_attempts`, `successfull_logins`, `failed_login_attempts`, `malicious_attempts`) VALUES
+('192.168.43.183', 'Google Chrome/91.0.4472.77', 'Tuesday June 15th, 2021 - 1:44pm', 'Incorrect login details,no matric number was entered,no password was entered.', 6, 0, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -114,15 +123,16 @@ CREATE TABLE `student` (
   `department` varchar(100) NOT NULL,
   `gradelevel` varchar(10) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `images` blob NOT NULL
+  `images` blob NOT NULL,
+  `failed_logins` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`studentID`, `matricno`, `firstname`, `lastname`, `email`, `department`, `gradelevel`, `password`, `images`) VALUES
-(1, '1506172120', 'Charles', 'Ofoesuwa', 'sodje.o@gmail.com', 'computer science', 'graduated', '1', 0x2e2e2f696d616765732d66696c65732f736578322e6a706567);
+INSERT INTO `student` (`studentID`, `matricno`, `firstname`, `lastname`, `email`, `department`, `gradelevel`, `password`, `images`, `failed_logins`) VALUES
+(1, '1506172120', 'Charles', 'Ofoesuwa', 'sodje.o@gmail.com', 'computer science', 'graduated', '1', 0x2e2e2f696d616765732d66696c65732f736578322e6a706567, '0');
 
 -- --------------------------------------------------------
 
